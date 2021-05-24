@@ -3,7 +3,7 @@ function changeSchedule(checkboxElem) {
 	// console.log(checkboxElem);
 	// Searching for ID in element
 	var id = "L1" + checkboxElem.substring(1);
-	console.log(id);
+	// console.log(id);
 	var label = document.getElementById(id).innerHTML;
 	var timeFrame = label.substring(label.length - 11, label.length);
 	var low = parseInt(timeFrame.substring(0, 2));
@@ -47,12 +47,12 @@ function changeSchedule(checkboxElem) {
 
 function addToClassList(){
 	var addList = document.getElementsByName("add");
-	console.log(addList);
+	// console.log(addList);
 	var checked = [];
 	for (var i = 0; i < addList.length; i++)
 		if (document.getElementById(addList[i].id).checked) 
         	checked.push(addList[i].id);
-	console.log(checked);
+	// console.log(checked);
 
 	for (var i = 0; i < checked.length; i++){
 		// Creating elements for the new classes
@@ -67,7 +67,7 @@ function addToClassList(){
 		classLabel.className = 'form-check-label';
 		classLabel.id = 'L1' + checked[i].substring(1, checked[i].length);
 		var labelID = 'L2' + checked[i].substring(1, checked[i].length);
-		console.log(labelID);
+		// console.log(labelID);
 		classLabel.innerHTML = document.getElementById(labelID).innerHTML;
 		// Assigning New Classes to Class List
 		var div1 = document.createElement("div");
@@ -89,8 +89,8 @@ function addToClassList(){
 		button.type = "checkbox";
 		button.name = 'delete';
 		button.id = 'D' + checked[i].substring(1, checked[i].length);
-		console.log(checked[i].substring(1, checked[i].length));
-		console.log(button.id);
+		// console.log(checked[i].substring(1, checked[i].length));
+		// console.log(button.id);
 		// Adding Checkboxes to Class List
 		var classLabel = document.createElement('label')
 		classLabel.className = 'form-check-label';
@@ -113,15 +113,15 @@ function addToClassList(){
 		div1.appendChild(button);
 		div1.appendChild(classLabel);
 		// Removing added classes from the Add List
-		console.log(checked);
-		console.log('LI2' + checked[i].substring(1, checked[i].length));
+		// console.log(checked);
+		// console.log('LI2' + checked[i].substring(1, checked[i].length));
 		var toRemove = document.getElementById('LI2' + checked[i].substring(1, checked[i].length)).remove();
 	}
 }
 
 function cancelAdd(){
 	var addList = document.getElementsByName("add");
-	console.log(addList);
+	// console.log(addList);
 	var checked = [];
 	for (var i = 0; i < addList.length; i++)
 		if (document.getElementById(addList[i].id).checked) {
@@ -136,12 +136,12 @@ function callAdd(){
 
 function deleteFromClassList(){
 	var deleteList = document.getElementsByName("delete");
-	console.log(deleteList);
+	// console.log(deleteList);
 	var checked = [];
 	for (var i = 0; i < deleteList.length; i++)
 		if (document.getElementById(deleteList[i].id).checked) 
         	checked.push(deleteList[i].id);
-	console.log(checked);
+	// console.log(checked);
 
 	for (var i = 0; i < checked.length; i++){
 		// Creating elements for the new classes
@@ -177,7 +177,7 @@ function deleteFromClassList(){
 		var timeFrame = label.substring(label.length - 11, label.length);
 		var low = parseInt(timeFrame.substring(0, 2));
 		var high = parseInt(timeFrame.substring(6, 8));
-		console.log(label);
+		// console.log(label);
 		if (timeFrame.substring(9, 11) == "00")
 			high = high - 1;
 		// Finding days
@@ -190,7 +190,7 @@ function deleteFromClassList(){
 			label_cnt = label_cnt + 1;
 		} while (date_label != ' ');
 		var subjectName = label.substring(0, 7);
-		console.log(dates);
+		// console.log(dates);
 		for (var j = low; j <= high; j++){
 			for (var k = 0; k < dates.length; k++){
 				var gridID = dates[k] + j;
@@ -200,7 +200,7 @@ function deleteFromClassList(){
 			}
 		}
 		// Removing added classes from the Add List
-		console.log('LI1' + checked[i].substring(1, checked[i].lengasdth));
+		// console.log('LI1' + checked[i].substring(1, checked[i].lengasdth));
 		var toRemove = document.getElementById('LI1' + checked[i].substring(1, checked[i].length)).remove();
 		var toRemove = document.getElementById('LI3' + checked[i].substring(1, checked[i].length)).remove();
 	}
@@ -232,16 +232,16 @@ $(document).ready(() => {
 	var oldScheduleName = $("#scheduleName").val();
 
 	var includeList = document.getElementsByName("include");
-	console.log(includeList);
+	// console.log(includeList);
 	var checked = [];
 	for (var i = 0; i < includeList.length; i++)
 		if (document.getElementById(includeList[i].id).checked) 
         	checked.push(includeList[i].id);
-    console.log(checked);
-    console.log(checked.length);
+    // console.log(checked);
+    // console.log(checked.length);
     for (var k = 0; k < checked.length; k++ ){
 	    var id = "L1" + checked[k].substring(1);
-		console.log(id);
+		// console.log(id);
 		var label = document.getElementById(id).innerHTML;
 		var timeFrame = label.substring(label.length - 11, label.length);
 		var low = parseInt(timeFrame.substring(0, 2));
@@ -333,19 +333,19 @@ $('#scheduleName').blur(() => {
 	if ($("#scheduleName").val().length > 0) {
 		var newScheduleName = $("#scheduleName").val();
 		var currentUser = $("#currentUser").html();
-		console.log("Old: " + oldScheduleName);
-		console.log("New: " + newScheduleName);
+		// console.log("Old: " + oldScheduleName);
+		// console.log("New: " + newScheduleName);
 		if (newScheduleName != oldScheduleName){
 			$.get("/getScheduleName", { scheduleName: newScheduleName,
 			 username: currentUser},(result) => {
 				if(result.schedName == newScheduleName) {
-					console.log("Schedule name unavailable");
+					// console.log("Schedule name unavailable");
 	                $('#scheduleName').css('background-color', 'red');
 	                $('#saveSchedule').prop('disabled', true);
 	                $('#errorClassName').text('Shedule name not available');
 	            }
 	            else {
-	            	console.log("Schedule name available");
+	            	// console.log("Schedule name available");
 	                $.get("/updateScheduleName", { newScheduleName: newScheduleName,
 			 		username: currentUser, oldScheduleName: oldScheduleName},(result) => {
 			 			if (result){
@@ -355,7 +355,7 @@ $('#scheduleName').blur(() => {
 					 			$('#scheduleName').css('background-color', '#fff');
 		                	$('#saveSchedule').prop('disabled', false);
 		                	oldScheduleName = $("#scheduleName").val();
-		                	console.log("Just updated oldScheduleName to " + oldScheduleName);
+		                	// console.log("Just updated oldScheduleName to " + oldScheduleName);
 		                	$('#errorClassName').text('');
 			 			}
 			 		});
@@ -509,7 +509,7 @@ $('#saveSchedule').click(function () {
 	}
 	schedule.classes = classes;
 	schedule.classCnt = classCnt;
-	console.log(schedule);
+	// console.log(schedule);
 	$.get("/saveSchedule", { schedule: schedule }, (result) => {
 		if (result){
 			ToastySave();
