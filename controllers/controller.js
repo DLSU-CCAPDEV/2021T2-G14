@@ -274,16 +274,22 @@ const controller = {
 	},
 
 	getEditAcc: function (req, res) {
-		db.findOne(
-			User,
-			{ username: req.session.username },
-			"username desc email profPic",
-			function (result) {
-				if (result) {
-					res.render("edit_account", result);
-				} else console.log("error editing account");
-			}
-		);
+		if (req.session.username) {
+			db.findOne(
+				User,
+				{ username: req.session.username },
+				"username desc email profPic",
+				function (result) {
+					if (result) {
+						result.flag = true;
+						result.username = req.session.username;
+						res.render("edit_account", result);
+					} else console.log("error editing account");
+				}
+			);
+		} else {
+			res.redirect("/");
+		}
 	},
 
 	postEditAcc: function (req, res) {
@@ -366,17 +372,23 @@ const controller = {
 	},
 
 	getManageAcc: function (req, res) {
-		db.findOne(
-			User,
-			{ username: req.session.username },
-			"username desc email profPic",
-			function (result) {
-				if (result) {
-					console.log(result);
-					res.render("manage_account", result);
-				} else console.log("error managing account");
-			}
-		);
+		if (req.session.username) {
+			db.findOne(
+				User,
+				{ username: req.session.username },
+				"username desc email profPic",
+				function (result) {
+					if (result) {
+						console.log(result);
+						result.flag = true;
+						result.username = username: req.session.username;
+						res.render("manage_account", result);
+					} else console.log("error managing account");
+				}
+			);
+		} else {
+			res.redirect("/");
+		}
 	},
 
 	getRegister: function (req, res) {
