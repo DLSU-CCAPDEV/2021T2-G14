@@ -16,8 +16,8 @@ hbs.registerHelper("inSession", (loggedUser, cAuthor, options) => {
 	if (cAuthor == loggedUser) return options.fn(this);
 });
 dotenv.config();
-hostname = process.env.HOSTNAME;
-port = process.env.PORT || 3000;
+const HOSTNAME = process.env.HOSTNAME;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -43,8 +43,8 @@ hbs.registerHelper("ifEquals", function (arg1, arg2, options) {
 	return arg1 == arg2 ? options.fn(this) : options.inverse(this);
 });
 
-app.listen(port, hostname, () => {
+app.listen(PORT, HOSTNAME, () => {
 	console.log(
-		"server running at: " + "http://" + hostname + ":" + port + "/home"
+		"server running at: " + "http://" + HOSTNAME + ":" + PORT + "/home"
 	);
 });
