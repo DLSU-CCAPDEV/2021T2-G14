@@ -148,13 +148,13 @@ app.get("/about", function (req, res) {
 			username: req.session.username,
 			flag: true,
 		};
+		res.render("about", details);
 	} else {
 		var details = {
 			flag: false,
 		};
+		res.render("about", details);
 	}
-
-	res.render("about", details);
 });
 
 app.get("/change_password", function (req, res) {
