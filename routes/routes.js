@@ -224,7 +224,7 @@ app.post("/contact", function (req, res) {
 		else console.log("failed");
 	});
 
-	res.redirect("home");
+	res.redirect("/");
 });
 
 app.get("/create", function (req, res) {
@@ -251,7 +251,7 @@ app.get("/create", function (req, res) {
 			} else console.log("Error finding default classes");
 		});
 	} else {
-		res.redirect("home");
+		res.redirect("/");
 	}
 });
 
@@ -273,7 +273,7 @@ app.get("/delete_account", (req, res) => {
 
 	req.session.username = null;
 	req.session.password = null;
-	res.redirect("home");
+	res.redirect("/");
 });
 
 app.get("/getScheduleName", (req, res) => {
@@ -404,7 +404,7 @@ app.post("/edit_account", function (req, res) {
 
 app.get("/log_in", function (req, res) {
 	if (req.session.username) {
-		res.redirect("home");
+		res.redirect("/");
 	} else {
 		var details = {
 			flag: false,
@@ -448,7 +448,7 @@ app.post("/log_in", function (req, res) {
 					req.session.username = user.username;
 					req.session.password = password;
 
-					res.redirect("home");
+					res.redirect("/");
 				} else {
 					var details = {
 						flag: false,
@@ -519,7 +519,7 @@ app.get("/checkID", function (req, res) {
 app.get("/logout", function (req, res) {
 	req.session.destroy(function (err) {
 		if (err) throw err;
-		res.redirect("home");
+		res.redirect("/");
 	});
 });
 
