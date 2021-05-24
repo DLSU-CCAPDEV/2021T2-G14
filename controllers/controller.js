@@ -381,7 +381,7 @@ const controller = {
 					if (result) {
 						console.log(result);
 						result.flag = true;
-						result.username = username: req.session.username;
+						result.username = req.session.username;
 						res.render("manage_account", result);
 					} else console.log("error managing account");
 				}
