@@ -266,6 +266,13 @@ $(document).ready(() => {
         { scheduleName: newScheduleName, username: currentUser},
     	(result) => {
 			if (result){
+				$.get("/getScheduleId", { scheduleName: newScheduleName, username: currentUser},(result) => {
+					if (result){
+						console.log(result);
+						$('#schedId').html(result._id);
+					}
+					else console.log("Didn't retrieve _id")
+				});
 				$('#scheduleName').val(newScheduleName);
 				oldScheduleName = $("#scheduleName").val();
         		console.log("Added schedule name");
@@ -307,7 +314,6 @@ $(document).ready(() => {
 				console.log(schedule);
 				$.get("/saveSchedule", { schedule: schedule }, (result) => {
 					if (result){
-						ToastySave();
 						console.log("Success saving into database");
 					}
 					else console.log("Failed saving into database")
@@ -315,13 +321,6 @@ $(document).ready(() => {
 			    });
 			}
 			else console.log("Failed to add schedule name")
-		});
-		$.get("/getScheduleId", { scheduleName: newScheduleName, username: currentUser},(result) => {
-			if (result){
-				console.log(result);
-				$('#schedId').html(result._id);
-			}
-			else console.log("Didn't retrieve _id")
 		});
     });
 
