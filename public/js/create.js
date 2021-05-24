@@ -266,6 +266,8 @@ $(document).ready(() => {
         { scheduleName: newScheduleName, username: currentUser},
     	(result) => {
 			if (result){
+				var newScheduleName = $("#newScheduleName").val();
+       			var currentUser = $("#currentUser").html();
 				$.get("/getScheduleId", { scheduleName: newScheduleName, username: currentUser},(result) => {
 					if (result){
 						console.log(result);
