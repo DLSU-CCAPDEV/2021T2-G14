@@ -272,55 +272,55 @@ $(document).ready(() => {
 					if (result){
 						console.log(result);
 						$('#schedId').html(result._id);
+						$('#scheduleName').val(newScheduleName);
+						oldScheduleName = $("#scheduleName").val();
+		        		console.log("Added schedule name");
+		        		var schedId = $("#schedId").html();
+						var includeList = document.getElementsByName("include");
+						console.log(includeList);
+						var addList = document.getElementsByName("add");
+						console.log(addList);
+						var schedule = {};
+						var classes = [];
+						var classCnt = 0;
+						schedule.schedId = schedId;
+						for (var i = 0; i < includeList.length; i++){
+							var classDetails = {};
+							classDetails.category = "include";
+							classDetails.classId = includeList[i].id.substring(1,5);
+							classDetails.className = document.getElementById("L1" + 
+							includeList[i].id.substring(1)).innerHTML;
+							if (document.getElementById(includeList[i].id).checked)
+								classDetails.checked = "checked";
+							else classDetails.checked = "";
+							classes.push(classDetails);
+							classCnt += 1;
+						}
+						for (var j = 0; j < addList.length; j++, i++){
+							var classDetails = {};
+							classDetails.category = "add";
+							classDetails.classId = addList[j].id.substring(1,5);
+							classDetails.className = document.getElementById("L2" + 
+							addList[j].id.substring(1)).innerHTML;
+							if (document.getElementById(addList[j].id).checked)
+								classDetails.checked = "checked";
+							else classDetails.checked = "";
+							classes.push(classDetails);
+							classCnt += 1;
+						}
+						schedule.classes = classes;
+						schedule.classCnt = classCnt;
+						console.log(schedule);
+						$.get("/saveSchedule", { schedule: schedule }, (result) => {
+							if (result){
+								console.log("Success saving into database");
+							}
+							else console.log("Failed saving into database")
+
+					    });
 					}
 					else console.log("Didn't retrieve _id")
 				});
-				$('#scheduleName').val(newScheduleName);
-				oldScheduleName = $("#scheduleName").val();
-        		console.log("Added schedule name");
-        		var schedId = $("#schedId").html();
-				var includeList = document.getElementsByName("include");
-				console.log(includeList);
-				var addList = document.getElementsByName("add");
-				console.log(addList);
-				var schedule = {};
-				var classes = [];
-				var classCnt = 0;
-				schedule.schedId = schedId;
-				for (var i = 0; i < includeList.length; i++){
-					var classDetails = {};
-					classDetails.category = "include";
-					classDetails.classId = includeList[i].id.substring(1,5);
-					classDetails.className = document.getElementById("L1" + 
-					includeList[i].id.substring(1)).innerHTML;
-					if (document.getElementById(includeList[i].id).checked)
-						classDetails.checked = "checked";
-					else classDetails.checked = "";
-					classes.push(classDetails);
-					classCnt += 1;
-				}
-				for (var j = 0; j < addList.length; j++, i++){
-					var classDetails = {};
-					classDetails.category = "add";
-					classDetails.classId = addList[j].id.substring(1,5);
-					classDetails.className = document.getElementById("L2" + 
-					addList[j].id.substring(1)).innerHTML;
-					if (document.getElementById(addList[j].id).checked)
-						classDetails.checked = "checked";
-					else classDetails.checked = "";
-					classes.push(classDetails);
-					classCnt += 1;
-				}
-				schedule.classes = classes;
-				schedule.classCnt = classCnt;
-				console.log(schedule);
-				$.get("/saveSchedule", { schedule: schedule }, (result) => {
-					if (result){
-						console.log("Success saving into database");
-					}
-					else console.log("Failed saving into database")
-
-			    });
 			}
 			else console.log("Failed to add schedule name")
 		});
