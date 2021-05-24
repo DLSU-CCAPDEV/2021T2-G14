@@ -223,7 +223,7 @@ function saveCanvas(){
     html2canvas(document.querySelector("#capture"),{scrollY: -window.scrollY}).then(canvas => {
       	var a = document.createElement('a');
       	a.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-        a.download = $("#newScheduleName").val() + '.png';
+        a.download = $("#scheduleName").val() + '.png';
         a.click();
 
       	// window.location.href = image;
