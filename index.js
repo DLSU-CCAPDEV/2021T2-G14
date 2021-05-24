@@ -43,8 +43,6 @@ hbs.registerHelper("ifEquals", function (arg1, arg2, options) {
 	return arg1 == arg2 ? options.fn(this) : options.inverse(this);
 });
 
-app.listen(PORT, HOSTNAME, () => {
-	console.log(
-		"server running at: " + "http://" + HOSTNAME + ":" + PORT + "/home"
-	);
+app.listen(PORT, () => {
+	console.log("server running at: " + "http://localhost:" + PORT + "/home");
 });
