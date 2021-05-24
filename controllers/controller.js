@@ -481,31 +481,27 @@ const controller = {
 	},
 
 	getMyScheds: function (req, res) {
-		if (req.session.username) {
-			var currUser = req.session.username;
-			var scheduleDetails = "schedName classCnt _id";
-			db.findMany(
-				Schedules,
-				{ username: currUser },
-				scheduleDetails,
-				(result) => {
-					if (result != null) {
-						console.log("Loading my schedules");
-						var details = {
-							flag: true,
-							result: result,
-							username: req.session.username,
-						};
-						console.log(result);
-						res.render("my_schedules", details);
-					} else {
-						console.log("error loading my posts");
-					}
+		var currUser = req.session.username;
+		var scheduleDetails = "schedName classCnt _id";
+		db.findMany(
+			Schedules,
+			{ username: currUser },
+			scheduleDetails,
+			(result) => {
+				if (result != null) {
+					console.log("Loading my schedules");
+					var details = {
+						flag: true,
+						result: result,
+						username: req.session.username,
+					};
+					console.log(result);
+					res.render("my_schedules", details);
+				} else {
+					console.log("error loading my posts");
 				}
-			); 
-		} else {
-			res.redirect("/");
-		}
+			}
+		);
 	},
 
 	getViewAcc: (req, res) => {
@@ -890,26 +886,22 @@ const controller = {
 	},
 
 	getMyPosts: (req, res) => {
-		if (req.session.username) {
-			var currUser = req.session.username;
-			var postDetails =
-				"_id postImg schedTitle schedAuthor schedDesc upqty downqty";
-			db.findMany(Posts, { schedAuthor: currUser }, postDetails, (result) => {
-				if (result != null) {
-					console.log("loading my posts");
-					var details = {
-						flag: true,
-						result: result,
-						username: req.session.username,
-					};
-					res.render("my_posts", details);
-				} else {
-					console.log("error loading my posts");
-				}
-			}); 
-		} else {
-			res.redirect("/");
-		}
+		var currUser = req.session.username;
+		var postDetails =
+			"_id postImg schedTitle schedAuthor schedDesc upqty downqty";
+		db.findMany(Posts, { schedAuthor: currUser }, postDetails, (result) => {
+			if (result != null) {
+				console.log("loading my posts");
+				var details = {
+					flag: true,
+					result: result,
+					username: req.session.username,
+				};
+				res.render("my_posts", details);
+			} else {
+				console.log("error loading my posts");
+			}
+		});
 	},
 
 	getEditPost_schedid: (req, res) => {
