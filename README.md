@@ -9,7 +9,7 @@ This serves as the final project for CCAPDEV Group 14.
 * [Sy, James Matthew](https://github.com/symatt)
 
 ## Deployed Web Application ##
-[insert link here]()
+[insert link here](https://ccapdev-scheduler.herokuapp.com/)
 
 ## How to Setup Locally ##
 1. Clone this Repository
@@ -20,7 +20,7 @@ DB_URL=mongodb://localhost:27017/scheduler_db
 ```
 4. By default, the application utilizes MongoDB Atlas.
 5. To run the application online, run ```supervisor index.js```.
-6. Go to your browser and go to ```localhost:3000/home```.
+6. Go to your browser and go to ```localhost:3000/```.
 7. You are now ready to use Scheduler!
 
 ## NPM Packages Used ##
