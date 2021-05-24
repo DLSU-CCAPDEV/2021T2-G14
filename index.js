@@ -44,5 +44,5 @@ hbs.registerHelper("ifEquals", function (arg1, arg2, options) {
 });
 
 app.listen(PORT, () => {
-	console.log("server running at: " + "http://localhost:" + PORT + "/home");
+	console.log("server running at: " + "http://localhost:" + PORT + "/");
 });
