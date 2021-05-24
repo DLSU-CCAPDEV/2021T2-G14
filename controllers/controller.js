@@ -256,8 +256,10 @@ const controller = {
 			Schedules,
 			{ _id: req.query.schedule.schedId },
 			{
-				classCnt: req.query.schedule.classCnt,
-				classes: req.query.schedule.classes,
+				$set: {
+					classCnt: req.query.schedule.classCnt,
+					classes: req.query.schedule.classes
+				},
 			},
 			(result) => {
 				if (result > 0) {
