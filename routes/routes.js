@@ -48,6 +48,100 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 // TODO: add in routes
+
+/*
+	opens the home page of the web app
+	gets all the posts from the database and displays them 
+
+*/
+app.get("/", (req, res) => {
+	console.log("Home Page");
+
+	// HARDCODE add to db
+	// var posts = [];
+	// var titles = [
+	// 	"Year 1 Term 1 Schedule",
+	// 	"best sched ever",
+	// 	"DL only",
+	// 	"panget profs ko",
+	// 	"please copy my sched",
+	// ];
+
+	// var authors = [
+	// 	"sendcutdogpics",
+	// 	"ironman3000",
+	// 	"thorodinson",
+	// 	"blackwidow69",
+	// 	"captamerica",
+	// ];
+
+	// var descs = [
+	// 	"This is my first scehdule.",
+	// 	"i love my schedule",
+	// 	"we can be friends",
+	// 	"ew",
+	// 	"who has the same sched???",
+	// ];
+
+	// for (var i = 0; i < 5; i++) {
+	// 	var post = {
+	// 		schedcard: "schedcard-" + (i + 1),
+	// 		schedTitle: titles[i],
+	// 		schedid: "A1B2" + (i + 1),
+	// 		postImg: "/img/example" + (i + 1) + ".jpg",
+	// 		schedAuthor: authors[i],
+	// 		schedDesc: descs[i],
+	// 		upqty: 0,
+	// 		downqty: 0,
+	// 	};
+
+	// 	db.insertOne(Posts, post, (flag) => {
+	// 		if (flag) {
+	// 			console.log("added a post to db");
+	// 		}
+	// 	});
+
+	// 	posts.push(post);
+	// 	console.log(posts[i].schedcard);
+	// 	console.log(posts[i].postImg);
+	// }
+
+	console.log(req.session.username);
+	if (req.session.username) {
+		// get all the posts from the database
+		var postshome = "schedcard schedTitle _id postImg";
+		db.findMany(Posts, {}, postshome, (result) => {
+			if (result != null) {
+				console.log("loading home");
+				console.log(result);
+				var details = {
+					flag: true,
+					result: result,
+					username: req.session.username,
+				};
+				res.render("home", details);
+			} else console.log("error with db");
+		});
+	} else {
+		// get all the posts from the database
+		var postshome = "schedcard schedTitle _id postImg";
+		db.findMany(Posts, {}, postshome, (result) => {
+			if (result != null) {
+				console.log("loading home");
+				console.log(result);
+				var details = {
+					flag: false,
+					result: result,
+				};
+				res.render("home", details);
+			} else console.log("error with db");
+		});
+	}
+
+	// console.log(posts.length);
+	// res.render("home", posts);
+});
+
 app.get("/about", function (req, res) {
 	if (req.session.username) {
 		var details = {
@@ -408,7 +502,7 @@ app.post("/register", upload.single("dp"), function (req, res) {
 		db.insertOne(User, user, (result) => {
 			if (result) {
 				req.session.username = user.username;
-				res.redirect("/home");
+				res.redirect("/");
 			} else console.log("ERROR");
 		});
 	});
@@ -553,99 +647,6 @@ app.get("/viewaccount", (req, res, next) => {
 });
 
 /*
-	opens the home page of the web app
-	gets all the posts from the database and displays them 
-
-*/
-app.get("/home", (req, res) => {
-	console.log("Home Page");
-
-	// HARDCODE add to db
-	// var posts = [];
-	// var titles = [
-	// 	"Year 1 Term 1 Schedule",
-	// 	"best sched ever",
-	// 	"DL only",
-	// 	"panget profs ko",
-	// 	"please copy my sched",
-	// ];
-
-	// var authors = [
-	// 	"sendcutdogpics",
-	// 	"ironman3000",
-	// 	"thorodinson",
-	// 	"blackwidow69",
-	// 	"captamerica",
-	// ];
-
-	// var descs = [
-	// 	"This is my first scehdule.",
-	// 	"i love my schedule",
-	// 	"we can be friends",
-	// 	"ew",
-	// 	"who has the same sched???",
-	// ];
-
-	// for (var i = 0; i < 5; i++) {
-	// 	var post = {
-	// 		schedcard: "schedcard-" + (i + 1),
-	// 		schedTitle: titles[i],
-	// 		schedid: "A1B2" + (i + 1),
-	// 		postImg: "/img/example" + (i + 1) + ".jpg",
-	// 		schedAuthor: authors[i],
-	// 		schedDesc: descs[i],
-	// 		upqty: 0,
-	// 		downqty: 0,
-	// 	};
-
-	// 	db.insertOne(Posts, post, (flag) => {
-	// 		if (flag) {
-	// 			console.log("added a post to db");
-	// 		}
-	// 	});
-
-	// 	posts.push(post);
-	// 	console.log(posts[i].schedcard);
-	// 	console.log(posts[i].postImg);
-	// }
-
-	console.log(req.session.username);
-	if (req.session.username) {
-		// get all the posts from the database
-		var postshome = "schedcard schedTitle _id postImg";
-		db.findMany(Posts, {}, postshome, (result) => {
-			if (result != null) {
-				console.log("loading home");
-				console.log(result);
-				var details = {
-					flag: true,
-					result: result,
-					username: req.session.username,
-				};
-				res.render("home", details);
-			} else console.log("error with db");
-		});
-	} else {
-		// get all the posts from the database
-		var postshome = "schedcard schedTitle _id postImg";
-		db.findMany(Posts, {}, postshome, (result) => {
-			if (result != null) {
-				console.log("loading home");
-				console.log(result);
-				var details = {
-					flag: false,
-					result: result,
-				};
-				res.render("home", details);
-			} else console.log("error with db");
-		});
-	}
-
-	// console.log(posts.length);
-	// res.render("home", posts);
-});
-
-/*
 	when a post has been clicked
 	View a post of a certain post
 	opens a new page of the post with upvotes, downvotes, and comments 
@@ -753,7 +754,7 @@ app.get("/searchResults", (req, res) => {
 	var currUser = req.session.username;
 	var details = {};
 	if (req.query.q <= 0) {
-		res.redirect("/home");
+		res.redirect("/");
 	} else {
 		var searchquery = {
 			query: req.query.q,
