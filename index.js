@@ -48,5 +48,3 @@ app.listen(port, hostname, () => {
 		"server running at: " + "http://" + hostname + ":" + port + "/home"
 	);
 });
-
-module.exports = app;
